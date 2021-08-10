@@ -1,0 +1,50 @@
+html
+    body
+        h1 Whistle Example
+        dl
+            dt
+                h2 匹配域名
+            dd
+                a(href='http://localhost:3333') http://localhost:3333
+            dd
+                a(href='http://test.whistle-example.com') http://test.whistle-example.com
+            dd
+                a(href='http://test-333-box.whistle-example.com') http://test-333-box.whistle-example.com
+        p ---- ---- ---- 以下测试请在
+            a(href='http://test-333-box.whistle-example.com')  http://test-333-box.whistle-example.com
+            span  中进行
+
+        dl
+            dt
+                h2 修改请求
+            dd 打开 NetWork，查看对应请求的响应结果（所有请求参数都是 test=123，实际响应中会返回服务端接受到的真实值）
+            br
+            dd /urlParams?test=123
+            dd /reqMerge
+            dd /reqCookies
+
+        dl
+            dt
+                h2 修改响应
+            dd 打开 NetWork，查看对应请求的响应结果（服务端返回的所有响应都是 test=123，状态码 200）
+            br
+            dd /statusCode
+            dd /resReplace
+            dd /resMerge
+
+
+    script.
+        fetch('/urlParams?test=123')
+        fetch('/reqMerge', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify({
+                test: 123
+            })
+        })
+        fetch('/reqCookies')
+        fetch('/statusCode')
+        fetch('/resReplace')
+        fetch('/resMerge')
